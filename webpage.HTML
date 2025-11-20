@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Acme — Professional Website</title>
+  <meta name="description" content="Acme — Professional single-file website (HTML, CSS, JS)">
+  <style>
+    /* --- Reset & base --- */
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --accent:#06b6d4; --glass: rgba(255,255,255,0.03);
+      --radius:14px; --maxw:1100px; --ff:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:var(--ff); color:#e6eef6; background:linear-gradient(180deg,#071129 0%, #071229 60%);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; line-height:1.45;
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+
+    /* --- Header / Nav --- */
+    header{backdrop-filter: blur(6px); position:sticky; top:12px; z-index:40;}
+    .nav-wrap{display:flex; align-items:center; justify-content:space-between; padding:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:12px}
+    .brand{display:flex; gap:12px; align-items:center}
+    .logo{width:44px; height:44px; border-radius:10px; background:linear-gradient(135deg,#06b6d4,#7c3aed); display:grid; place-items:center; font-weight:700}
+    nav ul{display:flex; gap:16px; list-style:none; margin:0; padding:0}
+    nav a{padding:8px 12px; border-radius:8px; color:var(--muted); font-weight:600}
+    nav a:hover{color:#fff; background:var(--glass)}
+    .cta{background:linear-gradient(90deg,var(--accent),#7c3aed); padding:8px 14px; border-radius:10px; font-weight:700}
+    .actions{display:flex; gap:10px; align-items:center}
+
+    /* --- Hero --- */
+    .hero{display:grid; grid-template-columns:1fr 420px; gap:28px; align-items:center; padding:56px 0}
+    .hero-left h1{font-size:clamp(28px, 4vw, 44px); margin:0 0 12px}
+    .lead{color:var(--muted); font-size:1.05rem; margin-bottom:18px}
+    .hero-cta{display:flex; gap:12px}
+    .btn{padding:12px 18px; border-radius:10px; font-weight:700; cursor:pointer; border:0}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),#7c3aed); color:#041223}
+    .btn-ghost{background:transparent; color:var(--muted); border:1px solid rgba(255,255,255,0.04)}
+
+    /* --- Card / features --- */
+    .card{background:var(--card); padding:18px; border-radius:12px; box-shadow:0 6px 20px rgba(2,6,23,0.6)}
+    .features{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:28px 0}
+    .feature{padding:16px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+    .feature h4{margin:6px 0 0}
+    .muted{color:var(--muted)}
+
+    /* --- Portfolio --- */
+    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+    .proj{min-height:140px; border-radius:10px; overflow:hidden; position:relative}
+    .proj .overlay{position:absolute; inset:0; display:flex; align-items:flex-end; padding:12px; background:linear-gradient(180deg, transparent, rgba(2,6,23,0.6));}
+
+    /* --- Contact --- */
+    form{display:grid; gap:10px}
+    input,textarea{padding:12px; border-radius:10px; background:transparent; border:1px solid rgba(255,255,255,0.05); color:inherit}
+    textarea{min-height:120px; resize:vertical}
+
+    /* --- Footer --- */
+    footer{margin:34px 0 90px; color:var(--muted); text-align:center}
+
+    /* --- Utilities / Responsiveness --- */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;}
+      .features{grid-template-columns:repeat(2,1fr)}
+      .grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:640px){
+      nav ul{display:none}
+      .hero{padding:28px 0}
+      .features{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+    }
+
+    /* small helpers */
+    .small{font-size:0.88rem}
+    .flex{display:flex}
+    .space{gap:12px}
+
+    /* subtle animation */
+    .fade-up{transform:translateY(8px); opacity:0; transition:all .6s ease;}
+    .fade-up.show{transform:none; opacity:1}
+
+  </style>
+</head>
+<body>
+  <header class="container">
+    <div class="nav-wrap">
+      <div class="brand">
+        <div class="logo">AC</div>
+        <div>
+          <div style="font-weight:700">Acme Digital</div>
+          <div class="small muted">Design • Dev • Product</div>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="actions">
+        <a class="cta" href="#contact">Get a Quote</a>
+        <button id="themeToggle" title="Toggle theme" class="btn btn-ghost">Toggle</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <p class="muted">We build modern digital products</p>
+        <h1>Beautifully-crafted websites & web apps that scale</h1>
+        <p class="lead">Design-led development, performance-first, accessibility-aware. We focus on outcomes: faster launch, lower maintenance, measurable growth.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#contact">Start a Project</a>
+          <a class="btn btn-ghost" href="#work">View Work</a>
+        </div>
+
+        <div class="card" style="margin-top:20px">
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <div>
+              <div style="font-size:0.85rem; color:var(--muted)">Trusted by</div>
+              <div style="font-weight:700; margin-top:6px">40+ companies</div>
+            </div>
+            <div class="small muted">Average launch time: <strong style="color:#fff">6 weeks</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <aside>
+        <div class="card">
+          <h3 style="margin:0 0 10px">Quick Project Estimator</h3>
+          <form id="estimator">
+            <label class="small muted">Type</label>
+            <select id="type" style="padding:10px; border-radius:8px; background:transparent; border:1px solid rgba(255,255,255,0.04); color:inherit">
+              <option value="landing">Landing Page</option>
+              <option value="site">Corporate Site</option>
+              <option value="app">Web App</option>
+            </select>
+            <label class="small muted">Pages / Screens</label>
+            <input id="pages" type="number" min="1" value="5">
+            <div style="display:flex; gap:8px; align-items:center; margin-top:8px">
+              <button class="btn btn-primary" type="submit">Estimate</button>
+              <button id="clearEst" type="button" class="btn btn-ghost">Clear</button>
+            </div>
+            <div id="estimateOut" class="small muted" style="margin-top:10px"></div>
+          </form>
+        </div>
+      </aside>
+    </section>
+
+    <section id="services">
+      <h2>Services</h2>
+      <p class="muted">End-to-end product design and web engineering.</p>
+      <div class="features">
+        <div class="feature card">
+          <div style="font-size:18px; font-weight:700">Design Systems</div>
+          <div class="small muted">Reusable UI, consistent brand, faster delivery.</div>
+        </div>
+        <div class="feature card">
+          <div style="font-size:18px; font-weight:700">Frontend Development</div>
+          <div class="small muted">Performant HTML/CSS/JS, accessibility & SEO first.</div>
+        </div>
+        <div class="feature card">
+          <div style="font-size:18px; font-weight:700">Optimization</div>
+          <div class="small muted">Page speed, Core Web Vitals, progressive enhancement.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <h2>Selected work</h2>
+      <p class="muted">A few recent projects — hover to see details.</p>
+      <div class="grid" style="margin-top:12px">
+        <div class="proj card" tabindex="0" data-title="Fintech Dashboard" data-desc="A realtime analytics dashboard for finance teams." style="background-image:linear-gradient(135deg, rgba(124,58,237,0.12), rgba(6,182,212,0.06));">
+          <div class="overlay"><div><strong>Fintech Dashboard</strong><div class="small muted">Analytics UI</div></div></div>
+        </div>
+        <div class="proj card" tabindex="0" data-title="E‑commerce Revamp" data-desc="Design & conversion optimization for retail brand." style="background-image:linear-gradient(135deg, rgba(15,23,42,0.1), rgba(12,74,110,0.06));">
+          <div class="overlay"><div><strong>E‑commerce Revamp</strong><div class="small muted">Conversion & UX</div></div></div>
+        </div>
+        <div class="proj card" tabindex="0" data-title="Health App" data-desc="Telehealth app with secure messaging and scheduling." style="background-image:linear-gradient(135deg, rgba(6,182,212,0.06), rgba(124,58,237,0.06));">
+          <div class="overlay"><div><strong>Health App</strong><div class="small muted">Telehealth</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" style="margin-top:28px">
+      <h2>About us</h2>
+      <div class="card" style="display:flex; gap:18px; align-items:center; margin-top:12px">
+        <div style="flex:1">
+          <p class="muted">We’re a small cross-functional team — product designers, frontend engineers, and devops — focused on shipping reliable web products for scaleups and enterprise teams.</p>
+          <ul class="muted small">
+            <li>Performance-first architecture</li>
+            <li>Privacy-aware data handling</li>
+            <li>Clear SLAs & docs</li>
+          </ul>
+        </div>
+        <div style="width:120px; text-align:center">
+          <div style="width:80px; height:80px; border-radius:999px; background:linear-gradient(90deg,var(--accent),#7c3aed); display:inline-grid; place-items:center; font-weight:700">AD</div>
+          <div class="small muted">Founder</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:28px">
+      <h2>Contact</h2>
+      <div class="card" style="margin-top:12px">
+        <form id="contactForm">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px">
+            <input id="name" placeholder="Full name" required>
+            <input id="email" placeholder="Email" type="email" required>
+          </div>
+          <input id="subject" placeholder="Subject" required>
+          <textarea id="message" placeholder="Tell us about your project" required></textarea>
+          <div style="display:flex; gap:10px; align-items:center">
+            <button class="btn btn-primary" type="submit">Send message</button>
+            <div class="small muted">We reply within 48 hours</div>
+          </div>
+          <div id="formOut" class="small muted" style="margin-top:10px"></div>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div class="muted">© <span id="year"></span> Acme Digital • Built with HTML, CSS & JavaScript</div>
+    </footer>
+  </main>
+
+  <!-- Modal template -->
+  <div id="modal" style="position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(2,6,23,0.6); z-index:80">
+    <div style="width:90%; max-width:680px; background:var(--card); border-radius:12px; padding:18px; position:relative">
+      <button id="closeModal" style="position:absolute; right:12px; top:10px; background:transparent; border:0; color:var(--muted); font-size:16px">✕</button>
+      <h3 id="modalTitle"></h3>
+      <p id="modalDesc" class="muted"></p>
+    </div>
+  </div>
+
+  <script>
+    // Small JS utilities: estimate, contact validation, modal, theme toggle, reveal
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Estimator
+    document.getElementById('estimator').addEventListener('submit', function(e){
+      e.preventDefault();
+      const type = document.getElementById('type').value;
+      const pages = Number(document.getElementById('pages').value) || 1;
+      const base = type === 'landing' ? 80000 : (type==='site' ? 180000 : 300000);
+      const est = base + (pages * 12000);
+      document.getElementById('estimateOut').textContent = 'Rough estimate: ₹' + est.toLocaleString('en-IN');
+    });
+    document.getElementById('clearEst').addEventListener('click', ()=>{ document.getElementById('pages').value=5; document.getElementById('estimateOut').textContent='';});
+
+    // Contact form (demo only — does not send email)
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const out = document.getElementById('formOut');
+      out.textContent = 'Thanks, your message has been received (demo).';
+      this.reset();
+    });
+
+    // Project modal
+    const modal = document.getElementById('modal');
+    document.querySelectorAll('.proj').forEach(p => {
+      p.addEventListener('click', ()=> openProj(p));
+      p.addEventListener('keypress', (ev)=>{ if(ev.key==='Enter') openProj(p); });
+    });
+    function openProj(el){
+      document.getElementById('modalTitle').textContent = el.dataset.title || 'Project';
+      document.getElementById('modalDesc').textContent = el.dataset.desc || '';
+      modal.style.display = 'flex';
+    }
+    document.getElementById('closeModal').addEventListener('click', ()=> modal.style.display='none');
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) modal.style.display='none'; });
+
+    // Theme toggle (simple class toggle for demo)
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', ()=>{
+      document.body.classList.toggle('light');
+      if(document.body.classList.contains('light')){
+        document.documentElement.style.setProperty('--bg','#f7f9fb');
+        document.documentElement.style.setProperty('--card','#ffffff');
+        document.documentElement.style.setProperty('--muted','#475569');
+        document.documentElement.style.setProperty('--accent','#06b6d4');
+        document.body.style.color = '#0b1220';
+      } else {
+        document.documentElement.style.removeProperty('--bg');
+        document.documentElement.style.removeProperty('--card');
+        document.documentElement.style.removeProperty('--muted');
+        document.documentElement.style.removeProperty('--accent');
+        document.body.style.color = '';
+      }
+    });
+
+    // Simple intersection reveal
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('show'); })
+    }, {threshold:0.12});
+    document.querySelectorAll('section, .card, .proj').forEach(el=>{ el.classList.add('fade-up'); obs.observe(el); });
+
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const target = document.querySelector(a.getAttribute('href'));
+        if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+  </script>
+</body>
+</html>
